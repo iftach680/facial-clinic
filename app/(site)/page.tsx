@@ -12,24 +12,34 @@ export default async function HomePage() {
   return (
     <div>
       <section className="bg-gradient-to-b from-rose-50 to-white">
-        <div className="max-w-5xl mx-auto px-4 py-20 text-center space-y-6">
-          <h1 className="text-3xl sm:text-4xl font-semibold text-stone-800">{businessName}</h1>
-          <p className="text-stone-500 max-w-md mx-auto">
-            טיפולי קוסמטיקה מקצועיים ומוצרי טיפוח איכותיים — קבעו תור או הזמינו אונליין.
-          </p>
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link
-              href="/book"
-              className="rounded-full bg-rose-500 hover:bg-rose-600 text-white font-medium px-6 py-3 text-sm transition-colors"
-            >
-              קביעת תור
-            </Link>
-            <Link
-              href="/shop"
-              className="rounded-full bg-white border border-rose-200 hover:border-rose-300 text-rose-700 font-medium px-6 py-3 text-sm transition-colors"
-            >
-              למעבר לחנות
-            </Link>
+        <div className="max-w-5xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-10 items-center">
+          <div className="text-center md:text-right space-y-6 order-2 md:order-1">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-stone-800">{businessName}</h1>
+            <p className="text-stone-500 max-w-md mx-auto md:mx-0">
+              טיפולי קוסמטיקה מקצועיים ומוצרי טיפוח איכותיים — קבעו תור או הזמינו אונליין.
+            </p>
+            <div className="flex items-center justify-center md:justify-start gap-3 flex-wrap">
+              <Link
+                href="/book"
+                className="rounded-full bg-rose-500 hover:bg-rose-600 text-white font-medium px-6 py-3 text-sm transition-colors"
+              >
+                קביעת תור
+              </Link>
+              <Link
+                href="/shop"
+                className="rounded-full bg-white border border-rose-200 hover:border-rose-300 text-rose-700 font-medium px-6 py-3 text-sm transition-colors"
+              >
+                למעבר לחנות
+              </Link>
+            </div>
+          </div>
+          <div className="order-1 md:order-2 rounded-2xl overflow-hidden max-w-xs mx-auto md:max-w-none">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://6zifcej6jec811b2.public.blob.vercel-storage.com/site/hero.jpg"
+              alt={businessName}
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </section>
