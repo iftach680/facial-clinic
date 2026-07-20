@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { createPayment } from "@/lib/payments";
+import { sendPushToAll } from "@/lib/push";
 
 const CartItemSchema = z.object({
   productId: z.string().min(1),
@@ -92,6 +93,13 @@ export async function createOrder(formData: FormData) {
   await createPayment(order.id, total);
 
   revalidatePath("/admin/orders");
+
+  await sendPushToAll({
+    title: "הזמנה חדשה התקבלה",
+    body: `${customerName} · ${total.toFixed(2)} ש"ח`,
+    url: "/admin/orders",
+  }).catch(() => {});
+
   redirect(`/shop/confirmed?id=${order.id}`);
 }
 

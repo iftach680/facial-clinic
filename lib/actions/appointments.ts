@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getAvailableSlots } from "@/lib/availability";
+import { sendPushToAll } from "@/lib/push";
 
 const BookingSchema = z.object({
   serviceId: z.string().min(1),
@@ -59,6 +60,13 @@ export async function createAppointment(formData: FormData) {
   });
 
   revalidatePath("/admin/appointments");
+
+  await sendPushToAll({
+    title: "תור חדש נקבע",
+    body: `${customerName} · ${service!.name} · ${appointmentDate.toLocaleDateString("he-IL")} בשעה ${time}`,
+    url: "/admin/appointments",
+  }).catch(() => {});
+
   redirect(`/book/confirmed?id=${appointment.id}`);
 }
 
