@@ -74,6 +74,11 @@ model Order {
   createdAt     DateTime    @default(now())
 }
 
+model PageView {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+}
+
 model OrderItem {
   id        String  @id @default(cuid())
   orderId   String
