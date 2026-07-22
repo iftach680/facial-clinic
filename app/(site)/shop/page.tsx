@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import AddToCartButton from "@/components/AddToCartButton";
+import TiltCard from "@/components/TiltCard";
 
 export default async function ShopPage() {
   const products = await prisma.product.findMany({
@@ -19,9 +20,9 @@ export default async function ShopPage() {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5">
           {products.map((product) => (
-            <div
+            <TiltCard
               key={product.id}
-              className="group rounded-2xl border border-stone-200 bg-white overflow-hidden transition-all hover:shadow-lg hover:shadow-stone-200/60 hover:-translate-y-0.5"
+              className="group rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-[0_8px_16px_-8px_rgba(0,0,0,0.15)] hover:shadow-[0_24px_40px_-12px_rgba(225,29,72,0.25)]"
             >
               <div className="aspect-square bg-stone-100 overflow-hidden relative">
                 {product.imageUrl && (
@@ -48,7 +49,7 @@ export default async function ShopPage() {
                   imageUrl={product.imageUrl}
                 />
               </div>
-            </div>
+            </TiltCard>
           ))}
         </div>
       )}

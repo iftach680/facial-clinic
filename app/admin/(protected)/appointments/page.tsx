@@ -43,6 +43,7 @@ export default async function AdminAppointmentsPage() {
               <div className="text-sm font-medium text-stone-800">{appt.service.name}</div>
               <div className="text-xs text-stone-500">
                 {appt.customerName} · {appt.customerPhone}
+                {appt.customerEmail ? ` · ${appt.customerEmail}` : ""}
               </div>
               {appt.notes && <div className="text-xs text-stone-400 mt-0.5">{appt.notes}</div>}
             </div>

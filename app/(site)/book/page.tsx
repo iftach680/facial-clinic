@@ -166,6 +166,14 @@ export default async function BookPage({
           />
         </div>
         <div className="space-y-1.5">
+          <label className="text-sm font-medium text-stone-700">אימייל (אופציונלי, לאישור בדוא&quot;ל)</label>
+          <input
+            name="customerEmail"
+            type="email"
+            className="w-full rounded-lg border border-stone-300 px-3 py-2.5 text-sm"
+          />
+        </div>
+        <div className="space-y-1.5">
           <label className="text-sm font-medium text-stone-700">הערות (אופציונלי)</label>
           <textarea name="notes" rows={2} className="w-full rounded-lg border border-stone-300 px-3 py-2.5 text-sm" />
         </div>

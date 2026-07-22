@@ -55,6 +55,7 @@ model Appointment {
   date          DateTime
   customerName  String
   customerPhone String
+  customerEmail String?
   notes         String?
   status        String   @default("PENDING")
   createdAt     DateTime @default(now())

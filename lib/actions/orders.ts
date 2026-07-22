@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { createPayment } from "@/lib/payments";
 import { sendPushToAll } from "@/lib/push";
+import { sendOrderConfirmationEmail } from "@/lib/email";
+import { sendWhatsAppMessage } from "@/lib/whatsapp";
 
 const CartItemSchema = z.object({
   productId: z.string().min(1),
@@ -99,6 +101,23 @@ export async function createOrder(formData: FormData) {
     body: `${customerName} · ${total.toFixed(2)} ש"ח`,
     url: "/admin/orders",
   }).catch(() => {});
+
+  await sendWhatsAppMessage(
+    `🛍️ הזמנה חדשה התקבלה!\n${customerName} · ${customerPhone}\nסה"כ: ${total.toFixed(2)} ש"ח`
+  ).catch(() => {});
+
+  if (customerEmail) {
+    await sendOrderConfirmationEmail({
+      to: customerEmail,
+      customerName,
+      items: orderItemsData.map((item) => ({
+        name: productMap.get(item.productId)!.name,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      total,
+    }).catch(() => {});
+  }
 
   redirect(`/shop/confirmed?id=${order.id}`);
 }
